@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This file is part of Glugox.
+ *
+ * (c) Glugox <glugox@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+-->
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="left">
+            <block class="Glugox\Process\Block\Adminhtml\Process\Edit\Tabs" name="glugox_process_edit_tabs">
+                <block class="Glugox\Process\Block\Adminhtml\Process\Edit\Tab\Main" name="glugox_process_edit_tab_main"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">main_section</argument>
+                    <argument name="block" xsi:type="string">glugox_process_edit_tab_main</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Glugox\Process\Block\Adminhtml\Process\Edit" name="process_process_edit"/>
+        </referenceContainer>
+    </body>
+</page>

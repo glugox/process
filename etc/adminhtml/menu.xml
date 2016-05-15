@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * This file is part of Glugox.
+ *
+ * (c) Glugox <glugox@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../app/code/Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Glugox_Process::core" title="Process" module="Glugox_Process" sortOrder="10" parent="Glugox_Core::glugox" dependsOnModule="Glugox_Core" resource="Glugox_Process::core"/>
+        <add id="Glugox_Process::process" title="Process" module="Glugox_Process" sortOrder="10" parent="Glugox_Process::core" action="glugox_process/process/" resource="Glugox_Process::process"/>
+        <add id="Glugox_Process::instance" title="Process Instances" module="Glugox_Process" sortOrder="20" parent="Glugox_Process::core" action="glugox_process/instance/" resource="Glugox_Process::instance"/>
+    </menu>
+</config>
