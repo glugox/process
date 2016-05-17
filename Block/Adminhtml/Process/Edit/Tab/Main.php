@@ -71,11 +71,21 @@ class Main extends Generic implements TabInterface
         if ($model->getId()) {
             $fieldset->addField('id', 'hidden', ['name' => 'id']);
         }
+
+        $fieldset->addField(
+            'code',
+            'text',
+            ['name' => 'code', 'label' => __('Code'), 'title' => __('Code'), 'required' => true]
+        );
+
         $fieldset->addField(
             'name',
             'text',
-            ['name' => 'name', 'label' => __('Process Name'), 'title' => __('Process Name'), 'required' => true]
+            ['name' => 'name', 'label' => __('Name'), 'title' => __('Name'), 'required' => true]
         );
+
+
+
         $form->setValues($model->getData());
         $this->setForm($form);
         return parent::_prepareForm();

@@ -10,8 +10,17 @@
 
 namespace Glugox\Process\Model\ResourceModel\Instance;
 
+use Glugox\Process\Model\Instance;
+
 class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
+
+
+    /**
+     * @var string
+     */
+    protected $_idFieldName = Instance::PROCESS_INSTANCE_ID;
+
     /**
      * Define resource model
      *

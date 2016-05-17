@@ -22,4 +22,32 @@ class Instance extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
     {
         $this->_init('glugox_process_instance', 'id');
     }
+
+    /**
+     * Retrieve process instance by index data fields
+     *
+     * @param \Magento\Framework\Model\AbstractModel $object
+     * @param array $processData
+     * @return \Glugox\Process\Model\ResourceModel\Instance
+     */
+    public function getByIndexData( \Magento\Framework\Model\AbstractModel $object, array $processData ){
+
+        $connection = $this->getConnection();
+        if ($connection ) {
+
+            $select = $connection->select()->from($this->getMainTable());
+            foreach ($processData as $field => $value){
+                $field = $connection->quoteIdentifier(sprintf('%s.%s', $this->getMainTable(), $field));
+                $select->where($field . '=?', $value);
+            }
+            $data = $connection->fetchRow($select);
+            if ($data) {
+                $object->setData($data);
+            }
+        }
+        $this->unserializeFields($object);
+        $this->_afterLoad($object);
+
+        return $this;
+    }
 }

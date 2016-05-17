@@ -74,7 +74,12 @@ class Main extends Generic implements TabInterface
         $fieldset->addField(
             'name',
             'text',
-            ['name' => 'name', 'label' => __('Process Instance Name'), 'title' => __('Process Instance Name'), 'required' => true]
+            ['name' => 'name', 'label' => __('Name'), 'title' => __('Name'), 'required' => true]
+        );
+        $fieldset->addField(
+            'html_value',
+            'text',
+            ['name' => 'html_value', 'label' => __('Html Value'), 'title' => __('Html Value'), 'required' => true]
         );
         $form->setValues($model->getData());
         $this->setForm($form);

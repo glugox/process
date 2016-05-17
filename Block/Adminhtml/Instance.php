@@ -21,7 +21,9 @@ class Instance extends \Magento\Backend\Block\Widget\Grid\Container
     {
         $this->_controller = 'instance';
         $this->_headerText = __('Process Instances');
-        $this->_addButtonLabel = __('Add New Process Instance');
+
         parent::_construct();
+
+        $this->removeButton('add');
     }
 }

@@ -50,7 +50,7 @@ class UpgradeSchema implements UpgradeSchemaInterface {
             'code',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             255,
-            [],
+            ['nullable' => false],
             'Process Code'
         )->addColumn(
             'name',
@@ -85,11 +85,11 @@ class UpgradeSchema implements UpgradeSchemaInterface {
             ['identity' => true, 'unsigned' => true, 'nullable' => false, 'primary' => true],
             'Process Instance Id'
         )->addColumn(
-            'process_id',
-            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
-            null,
-            ['unsigned' => true, 'nullable' => false, 'default' => '0'],
-            'Process Id'
+            'process_code', // foreign key of glugox_process.code
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            255,
+            ['nullable' => false],
+            'Process Code'
         )->addColumn(
             'store_id',
             \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
@@ -97,17 +97,47 @@ class UpgradeSchema implements UpgradeSchemaInterface {
             ['unsigned' => true, 'nullable' => false, 'default' => '0'],
             'Store Id'
         )->addColumn(
-            'plain_value',
+            'customer_id',
+            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+            null,
+            ['unsigned' => true, 'nullable' => true],
+            'Customer Id'
+        )->addColumn(
+            'name',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             '64k',
             [],
-            'Plain Text Value'
+            'Name'
         )->addColumn(
             'html_value',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             '64k',
             [],
             'Html Value'
+        )->addColumn(
+            'started_at',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
+            null,
+            ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT],
+            'Start Time'
+        )->addColumn(
+            'finished_at',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TIMESTAMP,
+            null,
+            ['nullable' => true],
+            'Finish Time'
+        )->addColumn(
+            'progress',
+            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+            null,
+            ['unsigned' => true, 'nullable' => false, 'default' => '0'],
+            'Process Progress'
+        )->addColumn(
+            'status_text',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            null,
+            [],
+            'Status Text'
         )->addIndex(
             $installer->getIdxName(
                 'glugox_process_instance',
@@ -142,14 +172,26 @@ class UpgradeSchema implements UpgradeSchemaInterface {
         );
 
         /**
-         * Foreign key : glugox_process :: id (process_id)
+         * Foreign key : glugox_process :: code (process_code)
          */
         $connection->addForeignKey(
-            $installer->getFkName('glugox_process_instance', 'process_id', 'variable', 'process_id'),
+            $installer->getFkName('glugox_process_instance', 'process_code', 'glugox_process', 'code'),
             $processInstanceTableName,
-            'process_id',
+            'process_code',
             $installer->getTable('glugox_process'),
-            'id',
+            'code',
+            \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
+        );
+
+        /**
+         * Foreign key : customer_entity :: entity_id (customer_id)
+         */
+        $connection->addForeignKey(
+            $installer->getFkName('glugox_process_instance', 'customer_id', 'customer_entity', 'entity_id'),
+            $processInstanceTableName,
+            'customer_id',
+            $installer->getTable('customer_entity'),
+            'entity_id',
             \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
         );
 
