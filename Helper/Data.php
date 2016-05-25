@@ -26,12 +26,36 @@ class Data extends AbstractHelper
     protected $_objectManager;
 
     /**
+     * @var \Magento\Framework\Filesystem
+     */
+    protected $_filesystem;
+
+    /**
+     * @var \Magento\Framework\Filesystem\Directory\WriteInterface
+     */
+    protected $_pubDirectory;
+
+
+    /**
+     * @var \Glugox\Process\Model\Session
+     */
+    protected $_processSession;
+
+
+    /**
      * @param Context $context
      */
-    public function __construct(Context $context, \Magento\Framework\ObjectManagerInterface $objectManager)
+    public function __construct(
+        Context $context,
+        \Magento\Framework\ObjectManagerInterface $objectManager,
+        \Magento\Framework\Filesystem $filesystem,
+        \Glugox\Process\Model\Session $processSession)
     {
         parent::__construct($context);
         $this->_objectManager = $objectManager;
+        $this->_filesystem = $filesystem;
+        $this->_pubDirectory = $this->_filesystem->getDirectoryWrite(\Magento\Framework\App\Filesystem\DirectoryList::PUB);
+        $this->_processSession = $processSession;
     }
 
 
@@ -65,6 +89,61 @@ class Data extends AbstractHelper
             ->save();
         return $process;
     }
+
+
+    /**
+     * @param Process $process
+     * @return Process
+     */
+    public function updateProcess( Instance $process, $data= [] ){
+
+        // updates
+        $processStatus = Instance::PROCESS_STATUS_RUNNING;
+        if(isset($data['progress']) && (int)$data['progress'] === 100 && !isset($data['status_text'])){
+            $processStatus = Instance::PROCESS_STATUS_FINISHED;
+            $data['status_text'] = $processStatus;
+        }
+        if(is_array($data) && !empty($data)){
+            $process->addData($data);
+        }
+
+
+        // check for saving
+        if($process->hasDataChanges()){
+
+            // save to db
+            $process->save();
+
+            // actual save
+            //$process = $this->_saveFileUpdate( $process );
+
+            $this->_processSession->start();
+            $this->_processSession->setProgress($process->getProcessInstanceCode(), $process->getProgress());
+            $this->_processSession->writeClose();
+
+        }
+
+        return $process;
+    }
+
+
+    /**
+     * Saves the process to file.
+     *
+     * @param Instance $process
+     * @return Instance
+     */
+    /*protected function _saveFileUpdate( Instance $process ){
+
+        // save to file
+        $processInstanceCode = $process->getProcessInstanceCode();
+        $jsString = "define([],function(){return {$process->toJson()} })";
+        $this->_pubDirectory->writeFile("process/{$processInstanceCode}.js", $jsString);
+
+        return $process;
+    }*/
+
+
 
 
 }

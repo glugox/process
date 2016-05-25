@@ -28,6 +28,8 @@ namespace Glugox\Process\Model;
  * @method \Glugox\Process\Model\Instance setHtmlValue($value)
  * @method \string getName()
  * @method \Glugox\Process\Model\Instance setName($value)
+ *  * @method \string getProcessInstanceCode()
+ * @method \Glugox\Process\Model\Instance setProcessInstanceCode($value)
  * @method \string getCustomerId()
  * @method \Glugox\Process\Model\Instance setCustomerId($value)
  *

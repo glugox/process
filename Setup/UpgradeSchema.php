@@ -91,6 +91,12 @@ class UpgradeSchema implements UpgradeSchemaInterface {
             ['nullable' => false],
             'Process Code'
         )->addColumn(
+            'process_instance_code', // unique key for the process instance
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            255,
+            ['nullable' => false],
+            'Process Instance Code'
+        )->addColumn(
             'store_id',
             \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
             null,
@@ -145,6 +151,14 @@ class UpgradeSchema implements UpgradeSchemaInterface {
                 \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE
             ),
             ['id', 'store_id'],
+            ['type' => \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE]
+        )->addIndex(
+            $installer->getIdxName(
+                'glugox_process_instance',
+                ['process_instance_code'],
+                \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE
+            ),
+            ['process_instance_code'],
             ['type' => \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE]
         )->addIndex(
             $installer->getIdxName('glugox_process_instance', ['store_id']),

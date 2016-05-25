@@ -35,16 +35,24 @@ class ProcessInstanceService{
 
 
     /**
+     * @var \Magento\Framework\Math\Random
+     */
+    protected $_random;
+
+
+    /**
      * ProcessInstanceService constructor.
      * @param InstanceFactory $processInstanceFactory
      * @param \Glugox\Process\Helper\Data $helper
      */
     public function __construct(
             \Glugox\Process\Model\InstanceFactory $processInstanceFactory,
-            \Glugox\Process\Helper\Data $helper
+            \Glugox\Process\Helper\Data $helper,
+            \Magento\Framework\Math\Random $random
     ) {
         $this->_processInstanceFactory = $processInstanceFactory;
         $this->_helper = $helper;
+        $this->_random = $random;
 
     }
     
@@ -55,6 +63,9 @@ class ProcessInstanceService{
      * @return mixed
      */
     public function create(array $instanceData) {
+        if(!isset($instanceData['process_instance_code'])){
+            $instanceData['process_instance_code'] = $this->_random->getRandomString(32);
+        }
         $instance = $this->_processInstanceFactory->create()->setData($instanceData);
         $instance->save();
         return $instance;
@@ -66,13 +77,25 @@ class ProcessInstanceService{
      */
     public function getOrCreate(array $instanceData) {
 
-        $instance = $this->_processInstanceFactory->create()->getByIndexData($instanceData);
+        $instance = $this->getByIndexData($instanceData);
         if (!$instance->getId()) {
             $instance = $this->create($instanceData);
         }
 
         return $instance;
     }
+
+
+    /**
+     * Retrieve process by index data fields
+     *
+     * @return \Glugox\Process\Model\Instance
+     */
+    public function getByIndexData( array $instanceData ){
+        $instance = $this->_processInstanceFactory->create()->getByIndexData($instanceData);
+        return $instance;
+    }
+
     
     
     /**
