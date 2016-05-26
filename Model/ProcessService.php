@@ -70,6 +70,38 @@ class ProcessService implements ProcessServiceInterface{
 
 
     /**
+     * @param Instance $process
+     * @return Process
+     */
+    public function startProcess(Instance $process)
+    {
+        return $this->_helper->startProcess($process);
+    }
+
+
+    /**
+     * @param Instance $process
+     * @param null $error
+     * @return Process
+     */
+    public function finishProcess(Instance $process, $error = null)
+    {
+        return $this->_helper->finishProcess($process, $error);
+    }
+
+
+    /**
+     * @param Instance $process
+     * @param array $data
+     * @return Process
+     */
+    public function updateProcess(Instance $process, $data = [])
+    {
+        return $this->_helper->updateProcess($process, $data);
+    }
+
+
+    /**
      * @param array $processData
      * @return mixed
      */
