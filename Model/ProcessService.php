@@ -95,7 +95,7 @@ class ProcessService implements ProcessServiceInterface{
      * @param array $data
      * @return Process
      */
-    public function updateProcess($process, $data = [])
+    public function updateProcess($process, array $data = [])
     {
         return $this->_helper->updateProcess($process, $data);
     }

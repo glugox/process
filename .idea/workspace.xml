@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c2ec76ba-c06c-4b1c-befd-8b1a47dda08f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Model/ProcessService.php" afterPath="$PROJECT_DIR$/Model/ProcessService.php" />
     </list>
     <ignored path="process.iws" />
@@ -41,8 +40,8 @@
       <file leaf-file-name="ProcessService.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Model/ProcessService.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="78" column="5" selection-start-line="78" selection-start-column="5" selection-end-line="78" selection-end-column="5" />
+            <state relative-caret-position="653">
+              <caret line="100" column="5" selection-start-line="100" selection-start-column="5" selection-end-line="100" selection-end-column="5" />
               <folding>
                 <element signature="e#247#291#0#PHP" expanded="true" />
               </folding>
@@ -227,12 +226,12 @@
       <option name="presentableId" value="Default" />
       <updated>1464244174692</updated>
       <workItem from="1464244175852" duration="1069000" />
-      <workItem from="1464331768008" duration="4275000" />
+      <workItem from="1464331768008" duration="4523000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5344000" />
+    <option name="totallyTimeSpent" value="5592000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1186" extended-state="0" />
@@ -343,8 +342,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Model/ProcessService.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="78" column="5" selection-start-line="78" selection-start-column="5" selection-end-line="78" selection-end-column="5" />
+        <state relative-caret-position="653">
+          <caret line="100" column="5" selection-start-line="100" selection-start-column="5" selection-end-line="100" selection-end-column="5" />
           <folding>
             <element signature="e#247#291#0#PHP" expanded="true" />
           </folding>
