@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
-    <preference for="Glugox\Process\Api\ProcessServiceInterface" type="Glugox\Process\Model\ProcessService"></preference>
+    <preference for="Glugox\Core\Api\ProcessServiceInterface" type="Glugox\Process\Model\ProcessService"></preference>
     <type name="Magento\Framework\Console\CommandList">
         <arguments>
             <argument name="commands" xsi:type="array">

@@ -11,7 +11,7 @@
 
 namespace Glugox\Process\Model;
 
-use Glugox\Process\Api\ProcessServiceInterface;
+use Glugox\Core\Api\ProcessServiceInterface;
 use Glugox\Process\Model\Process as ProcessModel;
 use Glugox\Process\Exception\ProcessException;
 

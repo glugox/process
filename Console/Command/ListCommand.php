@@ -11,7 +11,7 @@
 
 namespace Glugox\Process\Console\Command;
 
-use Glugox\Process\Api\ProcessServiceInterface;
+use Glugox\Core\Api\ProcessServiceInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
