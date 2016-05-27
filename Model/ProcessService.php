@@ -73,7 +73,7 @@ class ProcessService implements ProcessServiceInterface{
      * @param Instance $process
      * @return Process
      */
-    public function startProcess(Instance $process)
+    public function startProcess($process)
     {
         return $this->_helper->startProcess($process);
     }
@@ -84,7 +84,7 @@ class ProcessService implements ProcessServiceInterface{
      * @param null $error
      * @return Process
      */
-    public function finishProcess(Instance $process, $error = null)
+    public function finishProcess($process, $error = null)
     {
         return $this->_helper->finishProcess($process, $error);
     }
@@ -95,7 +95,7 @@ class ProcessService implements ProcessServiceInterface{
      * @param array $data
      * @return Process
      */
-    public function updateProcess(Instance $process, $data = [])
+    public function updateProcess($process, $data = [])
     {
         return $this->_helper->updateProcess($process, $data);
     }
