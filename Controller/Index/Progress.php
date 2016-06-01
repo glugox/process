@@ -64,26 +64,6 @@ class Progress extends \Magento\Framework\App\Action\Action {
             ["progress" => $this->_processSession->getProgress($processInstanceCode)]
         ];
 
-        //$processCode = $this->getRequest()->getParam('process_instance_code');
-
-
-
-        /*if ($processCode) {
-            try {
-                $process = $this->_processInstanceService->getByIndexData(['process_instance_code' => $processCode]);
-                if(!$process->getId()){
-                    $result['status'] = 404;
-                }
-                else{
-                    $result['process'] = $process->toArray();
-                }
-
-
-            } catch (NoSuchEntityException $noEntityException) {
-                //
-            }
-        }*/
-
 
         $jsonResult = $this->_jsonHelper->jsonEncode($result);
         return $this->getResponse()->representJson($jsonResult);
