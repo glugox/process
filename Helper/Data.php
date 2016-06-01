@@ -34,12 +34,7 @@ class Data extends AbstractHelper
      * @var \Magento\Framework\Filesystem\Directory\WriteInterface
      */
     protected $_pubDirectory;
-
-
-    /**
-     * @var \Glugox\Process\Model\Session
-     */
-    protected $_processSession;
+    
 
 
     /**
@@ -48,14 +43,12 @@ class Data extends AbstractHelper
     public function __construct(
         Context $context,
         \Magento\Framework\ObjectManagerInterface $objectManager,
-        \Magento\Framework\Filesystem $filesystem,
-        \Glugox\Process\Model\Session $processSession)
+        \Magento\Framework\Filesystem $filesystem)
     {
         parent::__construct($context);
         $this->_objectManager = $objectManager;
         $this->_filesystem = $filesystem;
         $this->_pubDirectory = $this->_filesystem->getDirectoryWrite(\Magento\Framework\App\Filesystem\DirectoryList::PUB);
-        $this->_processSession = $processSession;
     }
 
 
@@ -117,9 +110,11 @@ class Data extends AbstractHelper
             // actual save
             //$process = $this->_saveFileUpdate( $process );
 
-            $this->_processSession->start();
-            $this->_processSession->setProgress($process->getProcessInstanceCode(), $process->getProgress());
-            $this->_processSession->writeClose();
+            $session = $this->_objectManager->get('Glugox\Process\Model\Session');
+
+            $session->start();
+            $session->setProgress($process->getProcessInstanceCode(), $process->getProgress());
+            $session->writeClose();
 
         }
 

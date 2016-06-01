@@ -29,26 +29,27 @@ class Progress extends \Magento\Framework\App\Action\Action {
      */
     protected $_jsonHelper;
 
-
     /**
-     * @var \Glugox\Process\Model\Session
+     * @var \Magento\Framework\ObjectManagerInterface
      */
-    protected $_processSession;
+    protected $_objectManager;
+    
 
     /**
      * @param Context $context
      */
     public function __construct(
         Context $context,
+        \Magento\Framework\ObjectManagerInterface $objectManager,
         \Glugox\Process\Model\ProcessInstanceService $processInstanceService,
         \Magento\Framework\Json\Helper\Data $jsonHelper,
         \Glugox\Process\Model\Session $processSession
     )
     {
         parent::__construct($context);
+        $this->_objectManager = $objectManager;
         $this->_processInstanceService = $processInstanceService;
         $this->_jsonHelper = $jsonHelper;
-        $this->_processSession = $processSession;
     }
 
 
@@ -59,9 +60,10 @@ class Progress extends \Magento\Framework\App\Action\Action {
      */
     public function execute() {
 
+        $session = $this->_objectManager->get('Glugox\Process\Model\Session');
         $processInstanceCode = $this->getRequest()->getParam('process_instance_code', 'default');
         $result = ["process"=>
-            ["progress" => $this->_processSession->getProgress($processInstanceCode)]
+            ["progress" => $session->getProgress($processInstanceCode)]
         ];
 
 
